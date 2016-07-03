@@ -244,10 +244,11 @@ int main(void)
 	
 	// Forwarder
 	CIniFile ysini( "fat0:/TTMenu/YSMenu.ini" );	
-    ysini.SetString( "YSMENU", "AUTO_BOOT", "/Games/MyGame.nds                                                                                                            " );
+    ysini.SetString( "YSMENU", "AUTO_BOOT", 
+"/Games/MyGame.nds                                                                                                                                                                                                                                               " );
 	ysini.SaveIniFile( "fat0:/TTMenu/YSMenu.ini" );
 	
-	autoLaunchRom("fat0:/YSMenu.nds                                                                                                                                       ");
+	autoLaunchRom("fat0:/YSMenu.nds");
 
     dbg_printf("lastDirectory '%s'\n", lastDirectory.c_str() );
     if(!wnd->_mainList->enterDir("..."!=lastDirectory?lastDirectory:gs().startupFolder)) wnd->_mainList->enterDir("...");
