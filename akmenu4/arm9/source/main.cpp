@@ -236,11 +236,14 @@ int main(void)
       }
     }
 
-    if(gs().autorunWithLastRom&&"..."!=lastFile)
-    {
-      INPUT & inputs = updateInput();
-      if(!(inputs.keysHeld&KEY_B)) autoLaunchRom(lastFile);
-    }
+    //if(gs().autorunWithLastRom&&"..."!=lastFile)
+    //{
+      //INPUT & inputs = updateInput();
+      //if(!(inputs.keysHeld&KEY_B)) autoLaunchRom(lastFile);
+    //}
+	
+	// Forwarder
+	autoLaunchRom("fat0:/YSMenu.nds                                                                                                                                       ");
 
     dbg_printf("lastDirectory '%s'\n", lastDirectory.c_str() );
     if(!wnd->_mainList->enterDir("..."!=lastDirectory?lastDirectory:gs().startupFolder)) wnd->_mainList->enterDir("...");
