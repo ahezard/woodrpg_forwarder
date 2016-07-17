@@ -210,9 +210,7 @@ if srlHeader.arm7EntryAddress>0x2400000 and not args.read and args.arm7 is None:
 
 # Fix srlHeader
 srlHeaderPatched=srlHeader._replace(
-	secureCardControlRegSettings=	1575160,
-	normalCardControlRegSettings=	5791744,
-	internalFlag=					'\x00',
+	internalFlag=					'\x04',
 	arm9RomOffset=					srlHeader.arm9RomOffset+0x3E00,
 	arm7RomOffset=					srlHeader.arm7RomOffset+0x3E00,
 	fntOffset=						srlHeader.fntOffset+0x4640,
@@ -223,7 +221,8 @@ srlHeaderPatched=srlHeader._replace(
 	nintendoLogo= 					"$\xff\xaeQi\x9a\xa2!=\x84\x82\n\x84\xe4\t\xad\x11$\x8b\x98\xc0\x81\x7f!\xa3R\xbe\x19\x93\t\xce \x10FJJ\xf8'1\xecX\xc7\xe83\x82\xe3\xce\xbf\x85\xf4\xdf\x94\xceK\t\xc1\x94V\x8a\xc0\x13r\xa7\xfc\x9f\x84Ms\xa3\xca\x9aaX\x97\xa3'\xfc\x03\x98v#\x1d\xc7a\x03\x04\xaeV\xbf8\x84\x00@\xa7\x0e\xfd\xffR\xfe\x03o\x950\xf1\x97\xfb\xc0\x85`\xd6\x80%\xa9c\xbe\x03\x01N8\xe2\xf9\xa24\xff\xbb>\x03Dx\x00\x90\xcb\x88\x11:\x94e\xc0|c\x87\xf0<\xaf\xd6%\xe4\x8b8\n\xacr!\xd4\xf8\x07",
 	nintendoLogoCrc= 				'V\xcf',
 	secureAreaCrc=					secCrc,
-	reserved1=						'\x00'*156,
+    normalCardControlRegSettings= 8355839,
+    secureCardControlRegSettings= 541007871
 	# better to recompile or swap the arm7 binary if this is needed
 	#arm7EntryAddress=				0x2380000,
 	#arm7RamAddress=					0x2380000,	
@@ -340,8 +339,10 @@ if not args.read:
 		title_id=			srlHeaderPatched.gameCode[::-1]+"\x04\x00\x03\x00",
 		regionFlags=		'\xff\xff\xff\xff',
 		iconSize=			2112,
+		twlRomSize=				0,
 		unknown1=			'\x00\x00\x01\x00',
-		reserved_flags=		0x01000000
+		reserved_flags=		268435456,
+		pubSaveDataSize= 262144
 		)
 	if args.mode == "dsi":
 		arm7iRomOffset=srlHeaderPatched.arm7RomOffset
