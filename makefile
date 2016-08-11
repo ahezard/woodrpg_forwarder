@@ -66,10 +66,13 @@ akloader/akloader_r4.nds: libior4 libelm libunds
 akloader/akloader_ak2i.nds: libioak2i libelm libunds
 	cd akloader && $(MAKE) ak2i
 
-akloader/akloader_r4idsn.nds: libior4idsn libelm libunds
-	cd akloader && $(MAKE) r4idsn
+akloader/akloader_r4idsn.nds: libior4 libior4idsn libelm libunds
+	cd akloader && $(MAKE) r4
+	cp akloader/akloader_r4.nds akloader/akloader_r4idsn.nds
+	rm -rf akmenu4/arm9/data/r4idsn
+	cp -R akmenu4/arm9/data/akloader_r4idsn_1_25 akmenu4/arm9/data/r4idsn
 
-akmenu4: akmenu4/akmenu4.nds akmenu4/_DS_MENU.DAT
+akmenu4: akmenu4/akmenu4.nds akmenu4/_DS_MENU.DAT akmenu4/_DSMENU.DAT
 
 akmenu4/akmenu4.nds : akloader/akloader_rpg.nds
 	cd akmenu4 && $(MAKE) rpg
@@ -83,7 +86,7 @@ akmenu4/ak2i/akmenu4.nds : akloader/akloader_ak2i.nds
 akmenu4/_DSMENU.DAT : akloader/akloader_r4idsn.nds
 	cd akmenu4 && $(MAKE) r4idsn
 
-dldi: dldi/rpg_nand/rpg_nand.dldi dldi/rpg_sd/rpg_sd.dldi dldi/r4_sd/r4_sd.dldi
+dldi: dldi/rpg_nand/rpg_nand.dldi dldi/rpg_sd/rpg_sd.dldi dldi/r4_sd/r4_sd.dldi dldi/r4idsn_sd/r4idsn_sd.dldi
 
 dldi/rpg_nand/rpg_nand.dldi:
 	cd dldi/rpg_nand && $(MAKE)
