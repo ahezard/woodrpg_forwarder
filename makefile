@@ -59,6 +59,7 @@ akloader/akloader_rpg.nds: libiorpg libelm libunds
 
 akloader/akloader_r4.nds: libior4 libelm libunds
 	cd akloader && $(MAKE) r4
+	rm -rf akmenu4/arm9/data/r4_compiled
 	mv akmenu4/arm9/data/r4 akmenu4/arm9/data/r4_compiled
 	cp -R akmenu4/arm9/data/akloader_r4_wood_1_29 akmenu4/arm9/data/r4
 

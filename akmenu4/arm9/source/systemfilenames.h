@@ -21,10 +21,10 @@
 #ifndef _SYSTEMFILENAMES_H_
 #define _SYSTEMFILENAMES_H_
 
-#define SFN_SYSTEM_DIR              "fat0:/__rpg/"
+#define SFN_SYSTEM_DIR              "fat0:/_wfwd/"
 #define SFN_OFFICIAL_SAVELIST       SFN_SYSTEM_DIR"savelist.bin"
 #define SFN_CUSTOM_SAVELIST         SFN_SYSTEM_DIR"gamedata.bin"
-#define SFN_LAST_SAVEINFO           SFN_SYSTEM_DIR"lastsave.ini"
+#define SFN_LAST_SAVEINFO           "fat0:/__rpg/lastsave.ini"
 #define SFN_LAST_GBA_SAVEINFO       SFN_SYSTEM_DIR"lastgba.ini"
 #define SFN_SDCARD_LIST             SFN_SYSTEM_DIR"sdlist.ini"
 #define SFN_GLOBAL_SETTINGS         SFN_SYSTEM_DIR"globalsettings.ini"
