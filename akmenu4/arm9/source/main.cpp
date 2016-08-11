@@ -248,6 +248,8 @@ int main(void)
 	std::string	gamePath =
 	"/Games/MyGame.nds                                                                                                                                                                                                                                ";
 	
+	std::string	fullPath = "fat0:"+gamePath;
+	
 	if(fwdini.GetInt("forwarder","useLatestWood",0) == 1) {
 		dbg_printf("useLatestWood");
 		if(fwdini.GetInt("forwarder","useYSMenu",0) == 1) {
@@ -267,14 +269,14 @@ int main(void)
 		} else {
 			// configure wood
 			CIniFile lastini("fat0:/_wfwd/lastsave.ini");
-			lastini.SetString( "Save Info", "lastLoaded", gamePath);
+			lastini.SetString( "Save Info", "lastLoaded", fullPath);
 			lastini.SaveIniFile("fat0:/_wfwd/lastsave.ini");
 		}
 		dbg_printf("Launch fat0:/Wfwd.nds");
 		autoLaunchRom("fat0:/Wfwd.nds");
 	} else {
 		dbg_printf("launchDirectly");
-		std::string	fullPath = "fat0:"+gamePath;
+		
 		dbg_printf(fullPath.c_str());
 		autoLaunchRom(fullPath);
 	}
