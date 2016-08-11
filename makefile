@@ -67,7 +67,6 @@ akloader/akloader_ak2i.nds: libioak2i libelm libunds
 	cd akloader && $(MAKE) ak2i
 
 akloader/akloader_r4idsn.nds: libior4 libior4idsn libelm libunds
-	cd akloader && $(MAKE) r4
 	cp akloader/akloader_r4.nds akloader/akloader_r4idsn.nds
 	rm -rf akmenu4/arm9/data/r4idsn
 	cp -R akmenu4/arm9/data/akloader_r4idsn_1_25 akmenu4/arm9/data/r4idsn

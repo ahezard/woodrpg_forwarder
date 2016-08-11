@@ -243,13 +243,44 @@ int main(void)
     //}
 	
 	// Forwarder
+	CIniFile fwdini( "fat0:/_wfwd/wfwd.ini" );
+
+	std::string	gamePath =
+	"/Games/MyGame.nds                                                                                                                                                                                                                                ";
 	
-	CIniFile ysini( "fat0:/TTMenu/YSMenu.ini" );	
-	ysini.SetString( "YSMENU", "AUTO_BOOT", 
-	+"/Games/MyGame.nds                                                                                                                                                                                                                                               " );
- 	ysini.SaveIniFile( "fat0:/TTMenu/YSMenu.ini" );
+	if(fwdini.GetInt("forwarder","useLatestWood",0) == 1) {
+		dbg_printf("useLatestWood");
+		if(fwdini.GetInt("forwarder","useYSMenu",0) == 1) {
+			dbg_printf("useYSMenu");
+			
+			dbg_printf("YSMenuIni '%s'\n", fwdini.GetString("forwarder","YSMenuIni", "").c_str() );
+			// configure ysmenu
+			CIniFile ysini( fwdini.GetString("forwarder","YSMenuIni", "") );	
+			ysini.SetString( "YSMENU", "AUTO_BOOT", gamePath);
+			ysini.SaveIniFile( fwdini.GetString("forwarder","YSMenuIni", "") );
+			
+			// configure wood
+			dbg_printf("YSMenuPath '%s'\n", fwdini.GetString("forwarder","YSMenuPath", "").c_str() );
+			CIniFile lastini("fat0:/_wfwd/lastsave.ini");
+			lastini.SetString( "Save Info", "lastLoaded",  fwdini.GetString("forwarder","YSMenuPath", ""));
+			lastini.SaveIniFile("fat0:/_wfwd/lastsave.ini");
+		} else {
+			// configure wood
+			CIniFile lastini("fat0:/_wfwd/lastsave.ini");
+			lastini.SetString( "Save Info", "lastLoaded", gamePath);
+			lastini.SaveIniFile("fat0:/_wfwd/lastsave.ini");
+		}
+		dbg_printf("Launch fat0:/Wfwd.nds");
+		autoLaunchRom("fat0:/Wfwd.nds");
+	} else {
+		dbg_printf("launchDirectly");
+		std::string	fullPath = "fat0:"+gamePath;
+		dbg_printf(fullPath.c_str());
+		autoLaunchRom(fullPath);
+	}
 	
-	autoLaunchRom("fat0:/Wfwd.nds");
+	
+	
 
     dbg_printf("lastDirectory '%s'\n", lastDirectory.c_str() );
     if(!wnd->_mainList->enterDir("..."!=lastDirectory?lastDirectory:gs().startupFolder)) wnd->_mainList->enterDir("...");
