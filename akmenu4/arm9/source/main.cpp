@@ -250,6 +250,28 @@ int main(void)
 	
 	std::string	fullPath = "fat0:"+gamePath;
 	
+	unsigned int * SCFG_ROM=	(unsigned int*)0x4004000;
+	unsigned int * SCFG_CLK=	(unsigned int*)0x4004004; 
+	unsigned int * SCFG_EXT=	(unsigned int*)0x4004008;
+	
+	dbg_printf( "SCFG_ROM %x\n", *SCFG_ROM ); // DS MODE 3	
+	dbg_printf( "SCFG_CLK %x\n", *SCFG_CLK ); // DS MODE 80
+	dbg_printf( "SCFG_EXT %x\n", *SCFG_EXT ); // DS MODE 83000000
+	
+	if(fwdini.GetInt("misc","doubleARM9Speed",0) == 1) {
+		dbg_printf( "Boosting cpu speed\n" ); // DS MODE 80
+	
+		*SCFG_CLK=	*SCFG_CLK | 1;
+		
+		dbg_printf( "SCFG_CLK %x\n", *SCFG_CLK ); // DS MODE 80
+		
+		if(*SCFG_CLK==0x81) {
+			dbg_printf( "Cpu speed boosted\n"); // DS MODE == 81
+		} else {
+			dbg_printf( "Cpu speed boost faild\n"); // DS MODE != 81
+		}
+	}
+	
 	if(fwdini.GetInt("forwarder","useLatestWood",0) == 1) {
 		dbg_printf("useLatestWood");
 		if(fwdini.GetInt("forwarder","useYSMenu",0) == 1) {
